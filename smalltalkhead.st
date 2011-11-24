@@ -1,10 +1,6 @@
 FileStream fileIn: 'console.st' !
 
-| 
-numPlayers 
-numCardsEach 
-playerNames 
-|
+| numPlayers numCardsEach playerNames |
 
 Console showWelcomeMessage.
 

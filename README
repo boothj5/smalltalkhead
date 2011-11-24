@@ -1,0 +1,7 @@
+Smalltalk implementation of the card game shithead.
+
+To run:
+
+    gst smalltalkhead.st
+
+Assuming GNU Smalltalk
