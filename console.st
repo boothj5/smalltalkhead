@@ -1,6 +1,7 @@
 Object subclass: Console [
 
     Console class >> showWelcomeMessage [
+        Console clearScreen.
         Transcript show: 'Welcome to SmalltalkHead!'; cr.
         Transcript show: '-------------------------'; cr; cr.
     ]
@@ -33,5 +34,13 @@ Object subclass: Console [
         ].
 
         ^result
+    ]
+
+    Console class >> clearScreen [
+        Console newLines: 100.
+    ]
+
+    Console class >> newLines: num [
+        1 to: num do: [:i | Transcript cr. ].
     ]
 ]
