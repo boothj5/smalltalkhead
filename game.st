@@ -9,7 +9,10 @@ Object subclass: Game [
         1 to: names size do: [:i |
             newPlayers at: i put: (Player name: (names at: i)).
         ].
-        ^(self new) setNumCardsEach: numCards; setPlayers: newPlayers; yourself.
+        ^(self new) 
+            setNumCardsEach: numCards; 
+            setPlayers: newPlayers; 
+            yourself.
     ]
     
     setNumCardsEach: num [
