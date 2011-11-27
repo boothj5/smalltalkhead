@@ -3,15 +3,10 @@ Object subclass: Player [
 
     Player class >> name: aName [
         ^(self new)
-            setName: aName; 
+            name: aName; 
             yourself.
     ]
     
-    setName: aName [
-        name := aName.
-    ]
-
-    getName [
-        ^name.
-    ]
+    name: aName [ name := aName. ]
+    name [ ^name. ]
 ]

@@ -1,33 +1,23 @@
 FileStream fileIn: 'player.st' !
 
 Object subclass: Game [
-    | numCardsEach players |
+    | numCards players |
 
-    Game class >> numCardsEach: numCards playerNames: names [
+    Game class >> numCards: aNumCards playerNames: names [
         | newPlayers |
         newPlayers := Array new: names size.
         1 to: names size do: [:i |
             newPlayers at: i put: (Player name: (names at: i)).
         ].
         ^(self new) 
-            setNumCardsEach: numCards; 
-            setPlayers: newPlayers; 
+            numCards: aNumCards; 
+            players: newPlayers; 
             yourself.
     ]
     
-    setNumCardsEach: num [
-        numCardsEach := num.
-    ]
+    numCards: aNumCards [ numCards := aNumCards. ]
+    numCards [ ^numCards. ]
 
-    getNumCardsEach [
-        ^numCardsEach.
-    ]
-
-    setPlayers: newPlayers [
-        players := newPlayers.
-    ]
-
-    getPlayers [
-        ^players.
-    ]
+    players: aPlayers [ players := aPlayers. ]
+    players [ ^players. ]
 ]
