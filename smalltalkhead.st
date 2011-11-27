@@ -12,4 +12,7 @@ playerNames := Console requestPlayerNames: nPlayers.
 
 game := Game numCards: nCardsEach playerNames: playerNames.
 
-Transcript show: game deck size printString.
+1 to: game deck size do: [:i |
+    Transcript show: (game deck at: i) printString; cr.
+].
+

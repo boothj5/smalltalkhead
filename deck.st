@@ -37,4 +37,7 @@ Object subclass: Deck [
     deck: aDeck [ deck := aDeck ]
 
     size [ ^(deck size) ]
+
+    at: i [ ^(deck at: i) ]
+        
 ]
