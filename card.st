@@ -1,26 +1,26 @@
 Object subclass: Card [
     | rank suit |
 
-    RANKS := Dictionary new
-                at: 2 put: 'TWO';
-                at: 3 put: 'THREE';
-                at: 4 put: 'FOUR';
-                at: 5 put: 'FIVE';
-                at: 6 put: 'SIX';
-                at: 7 put: 'SEVEN';
-                at: 8 put: 'EIGHT';
-                at: 9 put: 'NINE';
-                at: 10 put: 'TEN';
-                at: 11 put: 'JACK';
-                at: 12 put: 'QUEEN';
-                at: 13 put: 'KING';
-                at: 14 put: 'ACE'.
+    CRANKS := Dictionary from: {
+                2 -> 'TWO'.
+                3 ->'THREE'.
+                4 -> 'FOUR'.
+                5 -> 'FIVE'.
+                6 -> 'SIX'.
+                7 -> 'SEVEN'.
+                8 -> 'EIGHT'.
+                9 -> 'NINE'.
+                10 -> 'TEN'.
+                11 -> 'JACK'.
+                12 -> 'QUEEN'.
+                13 -> 'KING'.
+                14 -> 'ACE' }.
 
-    SUITS := Dictionary new
-                at: 0 put: 'CLUBS';
-                at: 1 put: 'HEARTS';
-                at: 2 put: 'SPADES';
-                at: 3 put: 'DIAMONDS'.
+    CSUITS := Dictionary from: {
+                0 -> 'CLUBS'.
+                1 -> 'HEARTS'.
+                2 -> 'SPADES'.
+                3 -> 'DIAMONDS' }.
 
     Card class >> rank: aRank suit: aSuit [
         ^(self new)
@@ -29,9 +29,20 @@ Object subclass: Card [
             yourself.
     ]
     
+    Card class >> RANKS [ ^CRANKS ]
+    Card class >> SUITS [ ^CSUITS ]
+
     rank: aRank [ rank := aRank. ]
     rank [ ^rank. ]
 
     suit: aSuit [ suit := aSuit. ]
     suit [ ^suit. ]
+
+    printString [
+        | rankStr suitStr result |
+        rankStr := CRANKS at: rank.
+        suitStr := CSUITS at: suit.
+        result := rankStr, ' of ', suitStr.
+        ^result
+    ]
 ]
