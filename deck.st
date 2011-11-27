@@ -17,7 +17,8 @@ Object subclass: Deck [
         ].
         
         ^(self new)
-            deck: newDeck; 
+            deck: newDeck;
+            shuffle; 
             yourself.
     ]
 
@@ -39,5 +40,14 @@ Object subclass: Deck [
     size [ ^(deck size) ]
 
     at: i [ ^(deck at: i) ]
-        
+
+    shuffle [
+        1 to: deck size do: [ :i |
+            |ran tmp|
+            ran := Random between: 1 and: deck size.
+            tmp := deck at: i.
+            deck at: i put: (deck at: ran).
+            deck at: ran put: tmp 
+        ].
+    ]
 ]
