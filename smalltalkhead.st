@@ -1,15 +1,23 @@
 FileStream fileIn: 'console.st' !
+FileStream fileIn: 'game.st' !
+FileStream fileIn: 'player.st' !
 
-| numPlayers numCardsEach playerNames |
+| numPlayers numCardsEach playerNames game |
 
 Console showWelcomeMessage.
 
-numPlayers := Console requestNumPlayers.
-numCardsEach := Console requestNumCards.
+nPlayers := Console requestNumPlayers.
+nCardsEach := Console requestNumCards.
 
-playerNames := Console requestPlayerNames: numPlayers.
+playerNames := Console requestPlayerNames: nPlayers.
 
-1 to: playerNames size do: [:i |
-    Transcript show: 'Player ', i printString, ': ', (playerNames at: i); cr.
+game := Game numCardsEach: nCardsEach playerNames: playerNames.
+
+Transcript show: 'Num cards in game :', game getNumCardsEach printString.
+
+1 to: game getPlayers size do: [:i |
+    Transcript show: 'Player ', i printString, 's name : ', 
+        (game getPlayers at: i) getName.
 ]
+
 
