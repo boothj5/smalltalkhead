@@ -50,18 +50,14 @@ Object subclass: Console [
 
     Console class >> showPlayer: player [
         Transcript show: player name; cr.
-        Transcript show: 'HAND:     '.
-        player hand do: [:card |
-            Transcript show: card printString, ', '.
-        ].
-        Transcript cr.
-        Transcript show: 'FACEUP:   '.
-        player faceUp do: [:card |
-            Transcript show: card printString, ', '.
-        ].
-        Transcript cr.
-        Transcript show: 'FACEDOWN: '.
-        player faceDown do: [:card |
+        Console showHand: player hand     ofType: 'HAND:     '.
+        Console showHand: player faceUp   ofType: 'FACEUP:   '.
+        Console showHand: player faceDown ofType: 'FACEDOWN: '.
+    ]
+
+    Console class >> showHand: hand ofType: type [
+        Transcript show: type.
+        hand do: [:card |
             Transcript show: card printString, ', '.
         ].
         Transcript cr.
