@@ -76,8 +76,15 @@ Object subclass: Console [
     
     Console class >> requestHandSwap [
         | result |
-        Console newline.
         Transcript show: 'Please choose a hand card to swap: '.
+        result := stdin nextLine asNumber.
+        
+        ^result
+    ]
+
+    Console class >> requestFaceUpSwap [
+        | result |
+        Transcript show: 'Please choose a face up card to swap: '.
         result := stdin nextLine asNumber.
         
         ^result

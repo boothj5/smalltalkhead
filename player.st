@@ -33,4 +33,11 @@ Object subclass: Player [
     addToFaceDown: card [
         faceDown add: card
     ]
+
+    swap: aHandCard with: aFaceUpCard [
+        | tmpCard |
+        tmpCard := hand at: aHandCard.
+        hand at: aHandCard put: (faceUp at: aFaceUpCard).
+        faceUp at: aFaceUpCard put: tmpCard.
+    ]
 ]

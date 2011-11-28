@@ -18,8 +18,14 @@ game players do: [:player |
     Console clearScreen.
     Console showPlayer: player.
     swap := Console requestSwap: player name.
-    ( swap )
-        ifTrue: [
-            Console requestHandSwap.
-        ]
+    [ swap ] whileTrue: [
+        | handCard faceUpCard |
+        Console newline.
+        handCard := Console requestHandSwap.
+        faceUpCard := Console requestFaceUpSwap.
+        player swap: handCard with: faceUpCard.
+        Console clearScreen.
+        Console showPlayer: player.
+        swap := Console requestSwap: player name.
+    ]
 ]
