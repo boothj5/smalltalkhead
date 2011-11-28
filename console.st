@@ -64,10 +64,21 @@ Object subclass: Console [
     ]
 
     Console class >> requestSwap: name [
-        | result |
+        | str result |
         Console newline.
         Transcript show: name, ' would you like to swap cards? '.
-        result := stdin nextLine.
+        str := stdin nextLine.
+        ((str = 'y') or: [str = 'Y'])
+            ifTrue: [ result := true ]
+            ifFalse: [ result := false ].
+        ^result
+    ]
+    
+    Console class >> requestHandSwap [
+        | result |
+        Console newline.
+        Transcript show: 'Please choose a hand card to swap: '.
+        result := stdin nextLine asNumber.
         
         ^result
     ]

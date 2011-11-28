@@ -18,4 +18,8 @@ game players do: [:player |
     Console clearScreen.
     Console showPlayer: player.
     swap := Console requestSwap: player name.
+    ( swap )
+        ifTrue: [
+            Console requestHandSwap.
+        ]
 ]
