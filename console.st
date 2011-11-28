@@ -40,7 +40,39 @@ Object subclass: Console [
         Console newLines: 100.
     ]
 
+    Console class >> newline [
+        Transcript cr.
+    ]
+
     Console class >> newLines: num [
         1 to: num do: [:i | Transcript cr. ].
+    ]
+
+    Console class >> showPlayer: player [
+        Transcript show: player name; cr.
+        Transcript show: 'HAND:     '.
+        player hand do: [:card |
+            Transcript show: card printString, ', '.
+        ].
+        Transcript cr.
+        Transcript show: 'FACEUP:   '.
+        player faceUp do: [:card |
+            Transcript show: card printString, ', '.
+        ].
+        Transcript cr.
+        Transcript show: 'FACEDOWN: '.
+        player faceDown do: [:card |
+            Transcript show: card printString, ', '.
+        ].
+        Transcript cr.
+    ]
+
+    Console class >> requestSwap: name [
+        | result |
+        Console newline.
+        Transcript show: name, ' would you like to swap cards? '.
+        result := stdin nextLine.
+        
+        ^result
     ]
 ]
