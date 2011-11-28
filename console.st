@@ -45,7 +45,7 @@ Object subclass: Console [
     ]
 
     Console class >> newLines: num [
-        1 to: num do: [:i | Transcript cr. ].
+        num timesRepeat: [ Transcript cr. ].
     ]
 
     Console class >> showPlayer: player [

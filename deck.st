@@ -8,7 +8,7 @@ Object subclass: Deck [
         
         numDecks := Deck numDecksForPlayers: aNumPlayers andCards: aNumCardsEach.
         newDeck := OrderedCollection new.
-        1 to: numDecks do: [:i |
+        numDecks timesRepeat: [
             2 to: 14 do: [:rank |
                 0 to: 3 do: [:suit |
                     newDeck add: (Card rank: rank suit: suit).
