@@ -50,4 +50,6 @@ Object subclass: Deck [
             deck at: ran put: tmp 
         ].
     ]
+
+    pop [ ^(deck removeFirst) ]
 ]

@@ -14,8 +14,23 @@ Object subclass: Player [
     name [ ^name. ]
 
     hand: aHand [ hand := aHand. ]
+    hand [ ^hand ]
     
     faceUp: aFaceUp [ faceUp := aFaceUp. ]
+    faceUp [ ^faceUp ]
     
     faceDown: aFaceDown [ faceDown := aFaceDown. ]
+    faceDown [ ^faceDown ]
+
+    addToHand: card [
+        hand add: card
+    ]
+
+    addToFaceUp: card [
+        faceUp add: card
+    ]
+
+    addToFaceDown: card [
+        faceDown add: card
+    ]
 ]

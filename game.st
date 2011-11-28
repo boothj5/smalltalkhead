@@ -27,4 +27,14 @@ Object subclass: Game [
 
     deck: aDeck [ deck := aDeck ]
     deck [ ^deck ]
+    
+    deal [
+        players do: [:player |
+            1 to: numCards do: [:i |
+                player addToHand: deck pop.
+                player addToFaceUp: deck pop.
+                player addToFaceDown: deck pop.
+            ]
+        ]
+    ]
 ]
