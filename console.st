@@ -89,4 +89,17 @@ Object subclass: Console [
         
         ^result
     ]
+
+    Console class >> showGame: game [
+        | currentPlayer |
+        currentPlayer := game getCurrentPlayer.
+        Console clearScreen.
+        game players do: [:player |
+            Console showPlayer: player.
+            Console newline.
+        ].
+        Transcript show: currentPlayer name.
+        Console newline.
+    ]
+        
 ]

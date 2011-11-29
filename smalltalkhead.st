@@ -27,5 +27,11 @@ game players do: [:player |
         Console clearScreen.
         Console showPlayer: player.
         swap := Console requestSwap: player name.
-    ]
-]
+    ].
+].
+
+game firstMove.
+Console showGame: game.
+
+
+

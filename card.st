@@ -32,6 +32,20 @@ Object subclass: Card [
     Card class >> RANKS [ ^CRANKS ]
     Card class >> SUITS [ ^CSUITS ]
 
+    Card class >> shCompare: card1 with: card2 [
+        ((card1 specialCard) and: [ card2 specialCard ])
+            ifTrue: [ ^0 ].
+        ((card1 specialCard) and: [ card2 specialCard not ])
+            ifTrue: [ ^1 ].
+        (card2 specialCard)
+            ifTrue: [ ^(-1) ].
+        ((card1 rank) = (card2 rank))
+            ifTrue: [ ^0 ].
+        ((card1 rank) > (card2 rank))
+            ifTrue: [ ^1 ]
+            ifFalse: [ ^(-1) ].
+    ]
+
     rank: aRank [ rank := aRank. ]
     rank [ ^rank. ]
 
@@ -44,5 +58,17 @@ Object subclass: Card [
         suitStr := CSUITS at: suit.
         result := rankStr, ' of ', suitStr.
         ^result
+    ]
+
+    specialCard [
+        ^((rank = 2) | (rank = 7) | (rank = 10 ))
+    ]
+
+    equalsRank: aCard [
+        ^(rank = (aCard rank))
+    ]
+
+    = aCard [
+        ^((rank = (aCard rank)) and: [ suit = (aCard suit) ]).
     ]
 ]

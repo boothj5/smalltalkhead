@@ -40,4 +40,15 @@ Object subclass: Player [
         hand at: aHandCard put: (faceUp at: aFaceUpCard).
         faceUp at: aFaceUpCard put: tmpCard.
     ]
+    
+    lowestHandCard [
+        | lowestCard |
+        lowestCard := hand at: 1.
+        hand do: [:card |
+            ((Card shCompare: card with: lowestCard) < 0)
+                ifTrue: [ lowestCard := card ].
+        ].
+        
+        ^lowestCard   
+    ]
 ]

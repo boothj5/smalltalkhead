@@ -2,7 +2,7 @@ FileStream fileIn: 'player.st' !
 FileStream fileIn: 'deck.st' !
 
 Object subclass: Game [
-    | numCards players deck |
+    | numCards players deck currentPlayer |
 
     Game class >> numCards: aNumCards playerNames: names [
         | newPlayers newDeck |
@@ -36,5 +36,48 @@ Object subclass: Game [
                 player addToFaceDown: deck pop.
             ]
         ]
+    ]
+
+    firstMove [
+        | player cardsToLay |
+        currentPlayer := self playerWithLowest.
+        player := self getCurrentPlayer.
+        cardsToLay := OrderedCollection new.
+        cardsToLay add: player lowestHandCard.
+
+        player hand do: [:card |
+            ((card equalsRank: (cardsToLay at: 1)) & 
+                                        ((card = (cardsToLay at: 1)) not))
+                ifTrue: [
+                    cardsToLay add: card
+                ]
+        ].
+        
+        "self playFromHand: cardsToLay."
+        self moveToNextPlayer.
+    ]
+
+    moveToNextPlayer [
+        currentPlayer := currentPlayer + 1.
+        (currentPlayer > (players size))
+            ifTrue: [ currentPlayer := 1 ].
+    ]
+
+    playerWithLowest [
+        | lowestPlayer |
+        lowestPlayer := 1.
+        2 to: players size do: [:i |
+            | playerLowestCard currentLowestCard |
+            playerLowestCard := (players at: i) lowestHandCard.
+            currentLowestCard := (players at: lowestPlayer) lowestHandCard.
+            ((Card shCompare: playerLowestCard with: currentLowestCard) < 0)
+                ifTrue: [ lowestPlayer := i ].
+        ].
+    
+        ^lowestPlayer
+    ]
+
+    getCurrentPlayer [
+        ^(players at: currentPlayer)
     ]
 ]
