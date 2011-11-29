@@ -1,5 +1,5 @@
-FileStream fileIn: 'player.st' !
-FileStream fileIn: 'deck.st' !
+FileStream fileIn: './src/player.st' !
+FileStream fileIn: './src/deck.st' !
 
 Object subclass: Game [
     | numCards players deck currentPlayer |

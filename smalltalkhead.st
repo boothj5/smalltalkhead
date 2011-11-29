@@ -1,7 +1,7 @@
-FileStream fileIn: 'console.st' !
-FileStream fileIn: 'game.st' !
-FileStream fileIn: 'player.st' !
-FileStream fileIn: 'card.st' !
+FileStream fileIn: './src/console.st' !
+FileStream fileIn: './src/game.st' !
+FileStream fileIn: './src/player.st' !
+FileStream fileIn: './src/card.st' !
 
 | numPlayers numCardsEach playerNames game |
 

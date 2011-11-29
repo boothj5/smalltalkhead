@@ -1,4 +1,4 @@
-FileStream fileIn: 'card.st' !
+FileStream fileIn: './src/card.st' !
 
 Object subclass: Deck [
     | deck |
