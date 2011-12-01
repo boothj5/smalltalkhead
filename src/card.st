@@ -65,10 +65,10 @@ Object subclass: Card [
     ]
 
     equalsRank: aCard [
-        ^(rank = (aCard rank))
+        ^(self rank = aCard rank)
     ]
 
     = aCard [
-        ^((rank = (aCard rank)) and: [ suit = (aCard suit) ]).
+        ^((self rank = aCard rank) and: [ self suit = aCard suit ]).
     ]
 ]
