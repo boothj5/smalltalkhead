@@ -1,0 +1,6 @@
+#!/bin/sh
+
+echo Running CardTest...
+gst-sunit -f test/testcard.st CardTest
+echo Running PlayerTest...
+gst-sunit -f test/testplayer.st PlayerTest

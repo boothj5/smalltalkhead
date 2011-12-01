@@ -5,3 +5,7 @@ To run:
     gst -g smalltalkhead.st
 
 Assuming GNU Smalltalk
+
+To run tests:
+
+    ./runtests.sh
