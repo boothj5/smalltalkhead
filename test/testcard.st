@@ -102,5 +102,34 @@ TestCase subclass: CardTest [
         card2 := Card rank: 6 suit: 1.
         self assert: (Card shCompare: card1 with: card2) = -1
     ]
+
+    testSameRankDifferentSuit [
+        | card1 card2 |
+        card1 := Card rank: 5 suit: 2.
+        card2 := Card rank: 5 suit: 1.
+        self assert: (card1 sameRankDifferentSuitTo: card2)
+    ]
+
+    testSameRankNotDifferentSuit [
+        | card1 card2 |
+        card1 := Card rank: 5 suit: 2.
+        card2 := Card rank: 5 suit: 2.
+        self assert: (card1 sameRankDifferentSuitTo: card2) not
+    ]
+    
+    testNotSameRankSameSuit [
+        | card1 card2 |
+        card1 := Card rank: 2 suit: 2.
+        card2 := Card rank: 5 suit: 2.
+        self assert: (card1 sameRankDifferentSuitTo: card2) not
+    ]
+
+    testNotSameRankNotDifferentSuit [
+        | card1 card2 |
+        card1 := Card rank: 2 suit: 2.
+        card2 := Card rank: 6 suit: 1.
+        self assert: (card1 sameRankDifferentSuitTo: card2) not
+    ]
+
 ]
 

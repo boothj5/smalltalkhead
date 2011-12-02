@@ -16,6 +16,7 @@ Object subclass: Game [
             numCards: aNumCards; 
             players: newPlayers; 
             deck: newDeck;
+            currentPlayer: 1;
             yourself.
     ]
     
@@ -28,6 +29,9 @@ Object subclass: Game [
     deck: aDeck [ deck := aDeck ]
     deck [ ^deck ]
     
+    currentPlayer: aCurrentPlayer [ currentPlayer := aCurrentPlayer ]
+    currentPlayer [ ^currentPlayer ]    
+
     deal [
         players do: [:player |
             1 to: numCards do: [:i |
@@ -39,17 +43,17 @@ Object subclass: Game [
     ]
 
     firstMove [
-        | player cardsToLay |
+        | player cardsToLay firstCardToLay|
         currentPlayer := self playerWithLowest.
         player := self getCurrentPlayer.
         cardsToLay := OrderedCollection new.
         cardsToLay add: player lowestHandCard.
+        firstCardToLay := cardsToLay at: 1.
 
-        player hand do: [:card |
-            ((card equalsRank: (cardsToLay at: 1)) & 
-                                        ((card = (cardsToLay at: 1)) not))
+        player hand do: [:handCard |
+            (handCard sameRankDifferentSuitTo: firstCardToLay)
                 ifTrue: [
-                    cardsToLay add: card
+                    cardsToLay add: handCard
                 ]
         ].
         

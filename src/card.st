@@ -71,4 +71,8 @@ Object subclass: Card [
     = aCard [
         ^((self rank = aCard rank) and: [ self suit = aCard suit ]).
     ]
+
+    sameRankDifferentSuitTo: aCard [
+        ^((self equalsRank: aCard) & ((self = aCard) not))
+    ]
 ]
