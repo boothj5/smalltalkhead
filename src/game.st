@@ -2,7 +2,7 @@ FileStream fileIn: './src/player.st' !
 FileStream fileIn: './src/deck.st' !
 
 Object subclass: Game [
-    | numCards players deck currentPlayer pile burnt |
+    | numCards players deck currentPlayer pile burnt lastMove |
 
     Game class >> numCards: aNumCards playerNames: names [
         | newPlayers newDeck |
@@ -19,6 +19,7 @@ Object subclass: Game [
             pile: OrderedCollection new;
             burnt: OrderedCollection new;
             currentPlayer: 1;
+            lastMove: '';
             yourself.
     ]
     
@@ -36,6 +37,9 @@ Object subclass: Game [
 
     burnt: aBurnt [ burnt := aBurnt ]
     burnt [ ^burnt ]
+
+    lastMove: aLastMove [ lastMove := aLastMove ]
+    lastMove [ ^lastMove ]
     
     currentPlayer: aCurrentPlayer [ currentPlayer := aCurrentPlayer ]
     currentPlayer [ ^currentPlayer ]    
@@ -65,8 +69,22 @@ Object subclass: Game [
                 ]
         ].
         
-        "self playFromHand: cardsToLay."
+        self playFromHand: cardsToLay.
         self moveToNextPlayer.
+    ]
+
+    playFromHand: cards [
+        | player |
+        player := self getCurrentPlayer.
+        pile addAll: cards.
+        cards do: [:card |
+            player hand remove: card.
+            player addToHand: deck pop.
+        ].
+        lastMove :=  player name, ' laid '.
+        cards do: [:card |
+            lastMove := lastMove, card printString, ', '.
+        ].
     ]
 
     moveToNextPlayer [

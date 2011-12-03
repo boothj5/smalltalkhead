@@ -91,8 +91,6 @@ Object subclass: Console [
     ]
 
     Console class >> showGame: game [
-        | currentPlayer |
-        currentPlayer := game getCurrentPlayer.
         Console clearScreen.
         Console showPile: game pile.
         Console newline.
@@ -104,7 +102,7 @@ Object subclass: Console [
             Console showPlayer: player.
             Console newline.
         ].
-        Transcript show: currentPlayer name.
+        Transcript show: game lastMove.
         Console newline.
     ]
 
