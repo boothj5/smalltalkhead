@@ -2,7 +2,7 @@ FileStream fileIn: './src/player.st' !
 FileStream fileIn: './src/deck.st' !
 
 Object subclass: Game [
-    | numCards players deck currentPlayer |
+    | numCards players deck currentPlayer pile burnt |
 
     Game class >> numCards: aNumCards playerNames: names [
         | newPlayers newDeck |
@@ -16,6 +16,8 @@ Object subclass: Game [
             numCards: aNumCards; 
             players: newPlayers; 
             deck: newDeck;
+            pile: OrderedCollection new;
+            burnt: OrderedCollection new;
             currentPlayer: 1;
             yourself.
     ]
@@ -28,6 +30,12 @@ Object subclass: Game [
 
     deck: aDeck [ deck := aDeck ]
     deck [ ^deck ]
+
+    pile: aPile [ pile := aPile ]
+    pile [ ^pile ]
+
+    burnt: aBurnt [ burnt := aBurnt ]
+    burnt [ ^burnt ]
     
     currentPlayer: aCurrentPlayer [ currentPlayer := aCurrentPlayer ]
     currentPlayer [ ^currentPlayer ]    

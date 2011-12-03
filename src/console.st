@@ -94,6 +94,12 @@ Object subclass: Console [
         | currentPlayer |
         currentPlayer := game getCurrentPlayer.
         Console clearScreen.
+        Console showPile: game pile.
+        Console newline.
+        Console showDeck: game deck.
+        Console newline.
+        Console showBurnt: game burnt.
+        Console newline.
         game players do: [:player |
             Console showPlayer: player.
             Console newline.
@@ -101,5 +107,23 @@ Object subclass: Console [
         Transcript show: currentPlayer name.
         Console newline.
     ]
+
+    Console class >> showPile: pile [
+        Transcript show: pile size printString, ' on pile:'.
+        Console newline.
+        pile do: [:card |
+            Transcript show: card printString.
+            Console newline.
+        ].
+    ] 
         
+    Console class >> showDeck: deck [
+        Transcript show: deck size printString, ' left on deck'.
+        Console newline.
+    ]
+
+    Console class >> showBurnt: burnt [
+        Transcript show: burnt size printString, ' burnt'.
+        Console newline.
+    ]
 ]
