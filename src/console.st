@@ -109,8 +109,8 @@ Object subclass: Console [
     Console class >> showPile: pile [
         Transcript show: pile size printString, ' on pile:'.
         Console newline.
-        pile do: [:card |
-            Transcript show: card printString.
+        pile size to: 1 by: -1 do: [:i |
+            Transcript show: (pile at: i) printString.
             Console newline.
         ].
     ] 
@@ -126,9 +126,11 @@ Object subclass: Console [
     ]
 
     Console class >> requestHandChoice: name [
-        | result |
+        | result indexes |
         Transcript show: name, ' enter cards to lay: '.
         result := stdin nextLine.
-        ^result
+        indexes := (result tokenize: ',') collect: [:x | x asNumber].
+
+        ^indexes
     ]
 ]

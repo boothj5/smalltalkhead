@@ -38,6 +38,10 @@ Console newline.
     | player choice |
     player := game getCurrentPlayer.
     choice := Console requestHandChoice: player name.
+    game makeMove: choice.
+    Console clearScreen.
+    Console showGame: game.
+    Console newline.
 ]
      
 

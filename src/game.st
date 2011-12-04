@@ -73,6 +73,18 @@ Object subclass: Game [
         self moveToNextPlayer.
     ]
 
+    makeMove: choice [
+        | player cardsToLay |
+        player := self getCurrentPlayer.
+        cardsToLay := OrderedCollection new.
+        choice do: [:i |
+            cardsToLay add: (player hand at: i).
+        ].
+        self playFromHand: cardsToLay.
+        self moveToNextPlayer.
+    ]
+        
+
     playFromHand: cards [
         | player |
         player := self getCurrentPlayer.
