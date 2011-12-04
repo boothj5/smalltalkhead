@@ -93,6 +93,8 @@ Object subclass: Game [
             ifTrue: [ currentPlayer := 1 ].
     ]
 
+    continueGame [ ^true ]
+
     playerWithLowest [
         | lowestPlayer |
         lowestPlayer := 1.

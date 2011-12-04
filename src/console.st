@@ -124,4 +124,11 @@ Object subclass: Console [
         Transcript show: burnt size printString, ' burnt'.
         Console newline.
     ]
+
+    Console class >> requestHandChoice: name [
+        | result |
+        Transcript show: name, ' enter cards to lay: '.
+        result := stdin nextLine.
+        ^result
+    ]
 ]

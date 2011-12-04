@@ -32,6 +32,14 @@ game players do: [:player |
 
 game firstMove.
 Console showGame: game.
+Console newline.
+
+[game continueGame] whileTrue: [
+    | player choice |
+    player := game getCurrentPlayer.
+    choice := Console requestHandChoice: player name.
+]
+     
 
 
 
