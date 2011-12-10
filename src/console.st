@@ -57,8 +57,14 @@ Object subclass: Console [
 
     Console class >> showHand: hand ofType: type [
         Transcript show: type.
-        hand do: [:card |
-            Transcript show: card printString, ', '.
+        1 to: hand size do: [:i |
+            | cardStr |
+            (type = 'FACEDOWN: ') 
+                ifTrue:  [ cardStr := '****' ]
+                ifFalse: [ cardStr := (hand at: i) printString ].
+            Transcript show: '(', i printString, ')', cardStr.
+            ( i < hand size)
+                ifTrue: [ Transcript show: ', ' ].
         ].
         Transcript cr.
     ]
