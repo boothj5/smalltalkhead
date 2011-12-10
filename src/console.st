@@ -96,6 +96,11 @@ Object subclass: Console [
         ^result
     ]
 
+    Console class >> showPickupMessage: player [
+        Transcript show: 'OH DEAR ', player, ', you must pick up! Press enter.'.
+        stdin nextLine.
+    ]
+
     Console class >> showGame: game [
         Console clearScreen.
         Console showPile: game pile.

@@ -124,4 +124,33 @@ Object subclass: Game [
     getCurrentPlayer [
         ^(players at: currentPlayer)
     ]
+
+    currentPlayerCanMove [
+        | player |
+        player := self getCurrentPlayer.
+        ( pile isEmpty )
+            ifTrue: [ ^true ].
+        (( player hasCardsInHand ) & ( self canMoveWith: player hand ))
+            ifTrue: [ ^true ].
+        (( player hasCardsInFaceUp ) & ( self canMoveWith: player faceUp ))
+            ifTrue: [ ^true ].
+        ^false
+    ]
+
+    canMoveWith: cards [
+        cards do: [:card |
+            ( card rank >= pile last rank )
+                ifTrue: [ ^true ].
+        ].
+        ^false
+    ]
+
+    pickup [
+        | player |
+        player := self getCurrentPlayer.
+        player hand addAll: pile.
+        pile := OrderedCollection new.
+        lastMove := player name, ' pickup up the pile.'.
+        self moveToNextPlayer.
+    ]
 ]

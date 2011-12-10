@@ -51,4 +51,12 @@ Object subclass: Player [
         
         ^lowestCard   
     ]
+
+    hasCardsInHand [
+        ^( hand size > 0 )
+    ]
+
+    hasCardsInFaceUp [
+        ^( faceUp size > 0 )
+    ]
 ]

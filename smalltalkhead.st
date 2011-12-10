@@ -37,8 +37,15 @@ Console newline.
 [game continueGame] whileTrue: [
     | player choice |
     player := game getCurrentPlayer.
-    choice := Console requestHandChoice: player name.
-    game makeMove: choice.
+    ( game currentPlayerCanMove )
+        ifTrue: [
+            choice := Console requestHandChoice: player name.
+            game makeMove: choice.
+        ]
+        ifFalse: [
+            Console showPickupMessage: player name.
+            game pickup.
+        ].
     Console clearScreen.
     Console showGame: game.
     Console newline.
