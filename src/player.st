@@ -45,7 +45,7 @@ Object subclass: Player [
         | lowestCard |
         lowestCard := hand at: 1.
         hand do: [:card |
-            ((Card shCompare: card with: lowestCard) < 0)
+            (Card shCompare: card with: lowestCard)
                 ifTrue: [ lowestCard := card ].
         ].
         

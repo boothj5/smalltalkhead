@@ -34,16 +34,16 @@ Object subclass: Card [
 
     Card class >> shCompare: card1 with: card2 [
         ((card1 specialCard) and: [ card2 specialCard ])
-            ifTrue: [ ^0 ].
+            ifTrue: [ ^false ].
         ((card1 specialCard) and: [ card2 specialCard not ])
-            ifTrue: [ ^1 ].
+            ifTrue: [ ^false ].
         (card2 specialCard)
-            ifTrue: [ ^(-1) ].
+            ifTrue: [ ^true ].
         ((card1 rank) = (card2 rank))
-            ifTrue: [ ^0 ].
+            ifTrue: [ ^false ].
         ((card1 rank) > (card2 rank))
-            ifTrue: [ ^1 ]
-            ifFalse: [ ^(-1) ].
+            ifTrue: [ ^false ]
+            ifFalse: [ ^true ].
     ]
 
     Card class >> allRanksEqual: cards [

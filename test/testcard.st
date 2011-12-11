@@ -61,46 +61,32 @@ TestCase subclass: CardTest [
         self assert: (card1 = card2) not
     ]
 
-    testShCompareSpecialCardsEqual [
-        | card1 card2 |
-        card1 := Card rank: 2 suit: 2.
-        card2 := Card rank: 7 suit: 2.
-        self assert: (Card shCompare: card1 with: card2) = 0
-    ]
-
     testShCompareFirstSpecialWins [
         | card1 card2 |
         card1 := Card rank: 2 suit: 2.
         card2 := Card rank: 4 suit: 2.
-        self assert: (Card shCompare: card1 with: card2) = 1
+        self assert: (Card shCompare: card1 with: card2) not
     ]
         
     testShCompareSecondSpecialWins [
         | card1 card2 |
         card1 := Card rank: 11 suit: 2.
         card2 := Card rank: 7 suit: 2.
-        self assert: (Card shCompare: card1 with: card2) = -1
+        self assert: (Card shCompare: card1 with: card2)
     ]
 
-    testShCompareSameRankEquals [
-        | card1 card2 |
-        card1 := Card rank: 4 suit: 2.
-        card2 := Card rank: 4 suit: 1.
-        self assert: (Card shCompare: card1 with: card2) = 0
-    ]
-        
     testShCompareHigherRankFirstWins [
         | card1 card2 |
         card1 := Card rank: 5 suit: 2.
         card2 := Card rank: 4 suit: 1.
-        self assert: (Card shCompare: card1 with: card2) = 1
+        self assert: (Card shCompare: card1 with: card2) not
     ]
 
     testShCompareHigherRankSecondWins [
         | card1 card2 |
         card1 := Card rank: 5 suit: 2.
         card2 := Card rank: 6 suit: 1.
-        self assert: (Card shCompare: card1 with: card2) = -1
+        self assert: (Card shCompare: card1 with: card2)
     ]
 
     testSameRankDifferentSuit [

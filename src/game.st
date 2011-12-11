@@ -126,7 +126,7 @@ Object subclass: Game [
             | playerLowestCard currentLowestCard |
             playerLowestCard := (players at: i) lowestHandCard.
             currentLowestCard := (players at: lowestPlayer) lowestHandCard.
-            ((Card shCompare: playerLowestCard with: currentLowestCard) < 0)
+            ((Card shCompare: playerLowestCard with: currentLowestCard))
                 ifTrue: [ lowestPlayer := i ].
         ].
     
