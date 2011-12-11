@@ -91,5 +91,40 @@ TestCase subclass: PlayerTest [
 
         self assert: player lowestHandCard = card2
     ]
+
+    testHasCardsInHandWhenDoes [
+        | card |
+    
+        card := Card rank: 10 suit: 3.
+        player addToHand: card.
+
+        self assert: player hasCardsInHand.
+    ]
+
+    testNotHasCardsInHandWhenDoesnt [
+        | card |
+    
+        card := Card rank: 10 suit: 3.
+        player addToFaceUp: card.
+        self assert: player hasCardsInHand not.
+    ]
+        
+    testHasCardsInFaceUpWhenDoes [
+        | card |
+    
+        card := Card rank: 10 suit: 3.
+        player addToFaceUp: card.
+
+        self assert: player hasCardsInFaceUp.
+    ]
+
+    testNotHasCardsInFaceUpWhenDoesnt [
+        | card |
+    
+        card := Card rank: 10 suit: 3.
+        player addToHand: card.
+
+        self assert: player hasCardsInFaceUp not.
+    ]
 ]
 
