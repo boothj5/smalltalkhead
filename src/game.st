@@ -62,7 +62,8 @@ Object subclass: Game [
                 player addToHand: deck pop.
                 player addToFaceUp: deck pop.
                 player addToFaceDown: deck pop.
-            ]
+            ].
+            player sortHand.
         ]
     ]
 
@@ -105,6 +106,7 @@ Object subclass: Game [
             player hand remove: card.
             player addToHand: deck pop.
         ].
+        player sortHand.
         lastMove :=  player name, ' laid '.
         cards do: [:card |
             lastMove := lastMove, card printString, ', '.
@@ -186,6 +188,7 @@ Object subclass: Game [
         | player |
         player := self getCurrentPlayer.
         player hand addAll: pile.
+        player sortHand.
         pile := OrderedCollection new.
         lastMove := player name, ' pickup up the pile.'.
         self moveToNextPlayer.

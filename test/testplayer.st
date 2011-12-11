@@ -126,5 +126,25 @@ TestCase subclass: PlayerTest [
 
         self assert: player hasCardsInFaceUp not.
     ]
+
+    testSortHand [
+        | three five nine two |
+        three := Card rank: 3 suit: 1.
+        five := Card rank: 5 suit: 1.
+        nine := Card rank: 9 suit: 1.
+        two := Card rank: 2 suit: 1.
+
+        player addToHand: nine.
+        player addToHand: three.
+        player addToHand: two.
+        player addToHand: five.
+
+        player sortHand.
+
+        self assert: ((player hand at: 1) = three).
+        self assert: ((player hand at: 2) = five).
+        self assert: ((player hand at: 3) = nine).
+        self assert: ((player hand at: 4) = two).
+    ]
 ]
 

@@ -39,11 +39,7 @@ Object subclass: Card [
             ifTrue: [ ^false ].
         (card2 specialCard)
             ifTrue: [ ^true ].
-        ((card1 rank) = (card2 rank))
-            ifTrue: [ ^false ].
-        ((card1 rank) > (card2 rank))
-            ifTrue: [ ^false ]
-            ifFalse: [ ^true ].
+        ^((card1 rank) < (card2 rank))
     ]
 
     Card class >> allRanksEqual: cards [

@@ -59,4 +59,8 @@ Object subclass: Player [
     hasCardsInFaceUp [
         ^( faceUp size > 0 )
     ]
+
+    sortHand [
+        hand sort: [:a :b | Card shCompare: a with: b]
+    ]
 ]
