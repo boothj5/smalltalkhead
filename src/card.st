@@ -46,6 +46,14 @@ Object subclass: Card [
             ifFalse: [ ^(-1) ].
     ]
 
+    Card class >> allRanksEqual: cards [
+        cards do: [:card |
+            ( card equalsRank: (cards first) )
+                ifFalse: [ ^false ].
+        ].
+        ^true
+    ]
+
     rank: aRank [ rank := aRank. ]
     rank [ ^rank. ]
 
@@ -75,4 +83,5 @@ Object subclass: Card [
     sameRankDifferentSuitTo: aCard [
         ^((self equalsRank: aCard) & ((self = aCard) not))
     ]
+
 ]

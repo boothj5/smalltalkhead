@@ -101,6 +101,10 @@ Object subclass: Console [
         stdin nextLine.
     ]
 
+    Console class >> showBadMove [
+        Transcript show: 'You can''t do thay, try again.'.
+    ]
+
     Console class >> showGame: game [
         Console clearScreen.
         Console showPile: game pile.

@@ -23,6 +23,18 @@ Object subclass: Game [
             yourself.
     ]
     
+    Game class >> canLay: aCard on: aPile [
+        ( aPile isEmpty )
+            ifTrue: [ ^true ].
+        ( aCard specialCard )
+            ifTrue: [ ^true ].
+        ( aPile last rank = 7 )
+            ifTrue: [ ^( Game canLay: aCard on: (aPile allButLast) ) ].
+        ( aCard rank < aPile last rank )
+            ifTrue: [ ^false ].
+        ^true
+    ]
+
     numCards: aNumCards [ numCards := aNumCards ]
     numCards [ ^numCards ]
 
@@ -130,20 +142,45 @@ Object subclass: Game [
         player := self getCurrentPlayer.
         ( pile isEmpty )
             ifTrue: [ ^true ].
-        (( player hasCardsInHand ) & ( self canMoveWith: player hand ))
-            ifTrue: [ ^true ].
-        (( player hasCardsInFaceUp ) & ( self canMoveWith: player faceUp ))
-            ifTrue: [ ^true ].
+        ( player hasCardsInHand ) 
+            ifTrue: [ 
+                ( self canMoveWithOneOf: player hand )
+                    ifTrue: [ ^true ]
+                    ifFalse: [ ^false ].
+            ].
+        ( player hasCardsInFaceUp )
+            ifTrue: [
+                ( self canMoveWithOneOf: player faceUp )
+                    ifTrue: [ ^true ]
+                    ifFalse: [ ^false ].
+            ].
         ^false
     ]
 
-    canMoveWith: cards [
+    canMoveWithOneOf: cards [
         cards do: [:card |
-            ( card rank >= pile last rank )
+            ( Game canLay: card on: pile )
                 ifTrue: [ ^true ].
         ].
         ^false
     ]
+
+
+    validMoveChoice: choice [
+        | player cardsToLay |
+        player := self getCurrentPlayer.
+        cardsToLay := OrderedCollection new.
+        choice do: [:i |
+            cardsToLay add: (player hand at: i).
+        ].
+        ^(self validMove: cardsToLay)
+    ]
+         
+    validMove: cards [
+        ( Card allRanksEqual: cards )
+            ifFalse: [ ^false ].
+        ^(Game canLay: cards first on: pile)
+    ]   
 
     pickup [
         | player |
@@ -154,3 +191,5 @@ Object subclass: Game [
         self moveToNextPlayer.
     ]
 ]
+
+

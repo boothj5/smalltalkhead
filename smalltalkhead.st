@@ -40,7 +40,13 @@ Console newline.
     ( game currentPlayerCanMove )
         ifTrue: [
             choice := Console requestHandChoice: player name.
-            game makeMove: choice.
+            [ game validMoveChoice: choice ]
+                whileFalse: [
+                    Console showBadMove.
+                    Console newline.
+                    choice := Console requestHandChoice: player name.
+                ].
+            game  makeMove: choice.
         ]
         ifFalse: [
             Console showPickupMessage: player name.
