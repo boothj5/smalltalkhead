@@ -94,9 +94,28 @@ Object subclass: Game [
             cardsToLay add: (player hand at: i).
         ].
         self playFromHand: cardsToLay.
-        self moveToNextPlayer.
+        self burnCardLaid
+            ifTrue: [ self burnPile ]
+            ifFalse: [ self moveToNextPlayer ].
     ]
-        
+
+    burnCardLaid [
+        pile last rank = 10
+            ifTrue: [ ^true ]
+            ifFalse: [ 
+                (( pile size > 3) and: [ Card allRanksEqual: (pile last: 4) ])
+                    ifTrue: [ ^true ]
+                    ifFalse: [ ^false ].
+            ].
+    ]
+
+    burnPile [
+        | player |
+        player := self getCurrentPlayer.
+        burnt addAll: pile.
+        pile := OrderedCollection new.
+        lastMove:= player name, ' burnt the deck.'.
+    ]
 
     playFromHand: cards [
         | player |
