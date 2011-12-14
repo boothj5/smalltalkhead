@@ -96,7 +96,20 @@ Object subclass: Game [
         self playFromHand: cardsToLay.
         self burnCardLaid
             ifTrue: [ self burnPile ]
-            ifFalse: [ self moveToNextPlayer ].
+            ifFalse: [ 
+                self missAGoLaid
+                    ifTrue: [ 
+                        lastMove := player name, ' laid miss a go card.'.
+                        2 timesRepeat: [ self moveToNextPlayer ].
+                    ]
+                    ifFalse: [
+                        self moveToNextPlayer.
+                    ].
+            ]
+    ]
+
+    missAGoLaid [
+        ^( pile last rank = 8)
     ]
 
     burnCardLaid [
@@ -165,15 +178,11 @@ Object subclass: Game [
             ifTrue: [ ^true ].
         ( player hasCardsInHand ) 
             ifTrue: [ 
-                ( self canMoveWithOneOf: player hand )
-                    ifTrue: [ ^true ]
-                    ifFalse: [ ^false ].
+                ^( self canMoveWithOneOf: player hand )
             ].
         ( player hasCardsInFaceUp )
             ifTrue: [
-                ( self canMoveWithOneOf: player faceUp )
-                    ifTrue: [ ^true ]
-                    ifFalse: [ ^false ].
+                ^( self canMoveWithOneOf: player faceUp )
             ].
         ^false
     ]
