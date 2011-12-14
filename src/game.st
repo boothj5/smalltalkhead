@@ -90,10 +90,16 @@ Object subclass: Game [
         | player cardsToLay |
         player := self getCurrentPlayer.
         cardsToLay := OrderedCollection new.
-        choice do: [:i |
-            cardsToLay add: (player hand at: i).
-        ].
-        self playFromHand: cardsToLay.
+        player hasCardsInHand
+            ifTrue: [
+                choice do: [:i | cardsToLay add: (player hand at: i) ].
+                self playFromHand: cardsToLay.
+            ]
+            ifFalse: [
+                choice do: [:i | cardsToLay add: (player faceUp at: i) ].
+                self playFromFaceUp: cardsToLay.
+            ].
+            
         self burnCardLaid
             ifTrue: [ self burnPile ]
             ifFalse: [ 
@@ -136,9 +142,21 @@ Object subclass: Game [
         pile addAll: cards.
         cards do: [:card |
             player hand remove: card.
-            player addToHand: deck pop.
+            ( ( deck isEmpty not ) and: [ player hand size < numCards ] )
+                ifTrue: [ player addToHand: deck pop. ].
         ].
         player sortHand.
+        lastMove :=  player name, ' laid '.
+        cards do: [:card |
+            lastMove := lastMove, card printString, ', '.
+        ].
+    ]
+
+    playFromFaceUp: cards [
+        | player |
+        player := self getCurrentPlayer.
+        pile addAll: cards.
+        cards do: [:card | player faceUp remove: card. ].
         lastMove :=  player name, ' laid '.
         cards do: [:card |
             lastMove := lastMove, card printString, ', '.
@@ -195,14 +213,17 @@ Object subclass: Game [
         ^false
     ]
 
-
     validMoveChoice: choice [
         | player cardsToLay |
         player := self getCurrentPlayer.
         cardsToLay := OrderedCollection new.
-        choice do: [:i |
-            cardsToLay add: (player hand at: i).
-        ].
+        ( player hasCardsInHand )
+            ifTrue: [
+                choice do: [:i | cardsToLay add: (player hand at: i) ]
+            ]
+            ifFalse: [
+                choice do: [:i | cardsToLay add: (player faceUp at: i) ]
+            ].
         ^(self validMove: cardsToLay)
     ]
          

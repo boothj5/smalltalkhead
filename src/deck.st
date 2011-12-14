@@ -39,6 +39,8 @@ Object subclass: Deck [
 
     size [ ^(deck size) ]
 
+    isEmpty [ ^(deck isEmpty) ]
+
     at: i [ ^(deck at: i) ]
 
     shuffle [
