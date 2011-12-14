@@ -31,31 +31,51 @@ game players do: [:player |
 ].
 
 game firstMove.
-Console showGame: game.
-Console newline.
 
 [game continueGame] whileTrue: [
     | player choice |
+    
     player := game getCurrentPlayer.
-    ( game currentPlayerCanMove )
-        ifTrue: [
-            choice := Console requestHandChoice: player name.
-            [ game validMoveChoice: choice ]
-                whileFalse: [
-                    Console showBadMove.
-                    Console newline.
-                    choice := Console requestHandChoice: player name.
-                ].
-            game  makeMove: choice.
-        ]
-        ifFalse: [
-            Console showPickupMessage: player name.
-            game pickup.
-        ].
-    Console clearScreen.
     Console showGame: game.
     Console newline.
-]
+    
+    (game playingFromFaceDown)
+        ifTrue: [
+            | chosenCard |
+            chosenCard := Console requestFaceDownCard: player name.
+            ( game validMoveFromFaceDown: chosenCard ) 
+                ifTrue: [
+                    Console showFaceDownWin: (player faceDown at: chosenCard).
+                    game makeFaceDownMove: chosenCard.
+                ]
+                ifFalse: [
+                    Console showFaceDownFail: (player faceDown at: chosenCard).
+                    game pickUpPileAndFaceDown: chosenCard.
+                ].
+        ]
+        ifFalse: [
+            ( game currentPlayerCanMove )
+                ifTrue: [
+                    choice := Console requestHandChoice: player name.
+                    [ game validMoveChoice: choice ]
+                        whileFalse: [
+                            Console showBadMove.
+                            Console newline.
+                            choice := Console requestHandChoice: player name.
+                        ].
+                    game  makeMove: choice.
+                ]
+                ifFalse: [
+                    Console showPickupMessage: player name.
+                    game pickup.
+                ].
+            Console clearScreen.
+            Console showGame: game.
+            Console newline.
+        ].
+].
+
+Console showSmalltalkHead: ( game getSmalltalkHead ).
      
 
 

@@ -60,6 +60,10 @@ Object subclass: Player [
         ^( faceUp size > 0 )
     ]
 
+    hasCards [
+        ^((hand size > 0) | (faceUp size > 0) | (faceDown size > 0))
+    ]
+
     sortHand [
         hand sort: [:a :b | Card shCompare: a with: b]
     ]

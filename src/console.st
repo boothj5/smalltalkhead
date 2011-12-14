@@ -24,6 +24,15 @@ Object subclass: Console [
         ^result
     ]
 
+    Console class >> requestFaceDownCard: name [
+        | result |
+    
+        Transcript show: name, ' please choose a face down card: '.
+        result := stdin nextLine asNumber.
+    
+        ^result
+    ]
+
     Console class >> requestPlayerNames: numPlayers [
         | result |
         
@@ -147,5 +156,23 @@ Object subclass: Console [
         indexes := (result tokenize: ',') collect: [:x | x asNumber].
 
         ^indexes
+    ]
+
+    Console class >> showFaceDownWin: card [
+        Transcript show: 'WHEW you chose the ', card printString, ', press enter.'.
+        stdin nextLine.
+    ]
+    
+    Console class >> showFaceDownFail: card [
+        Transcript show: 'OH DEAR! You chose the ', card printString, ', press enter.'.
+        stdin nextLine.
+    ]
+
+    Console class >> showSmalltalkHead: player [
+        Console newline.
+        Transcript show: '!!!!!!!!! GAME OVER !!!!!!!!!!'.
+        Console newline.
+        Transcript show: player name, ' is a shithead!!'.
+        Console newline.
     ]
 ]

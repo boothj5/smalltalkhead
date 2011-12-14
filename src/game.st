@@ -169,7 +169,14 @@ Object subclass: Game [
             ifTrue: [ currentPlayer := 1 ].
     ]
 
-    continueGame [ ^true ]
+    continueGame [
+        | playersWithCards |
+        playersWithCards := 0.
+        players do: [:player |
+            player hasCards ifTrue: [ playersWithCards := playersWithCards + 1 ].
+        ].
+        ^(playersWithCards > 1)
+    ]
 
     playerWithLowest [
         | lowestPlayer |
@@ -183,6 +190,12 @@ Object subclass: Game [
         ].
     
         ^lowestPlayer
+    ]
+
+    playingFromFaceDown [
+        | player |
+        player := self getCurrentPlayer.
+        ^(((player hasCardsInHand) | (player hasCardsInFaceUp)) not)
     ]
 
     getCurrentPlayer [
@@ -226,6 +239,14 @@ Object subclass: Game [
             ].
         ^(self validMove: cardsToLay)
     ]
+
+    validMoveFromFaceDown: cardChoice [
+        | player cardToLay |
+        player := self getCurrentPlayer.
+        cardToLay := OrderedCollection new.
+        cardToLay add: (player faceDown at: cardChoice).
+        ^(self validMove: cardToLay)
+    ]
          
     validMove: cards [
         ( Card allRanksEqual: cards )
@@ -241,6 +262,46 @@ Object subclass: Game [
         pile := OrderedCollection new.
         lastMove := player name, ' pickup up the pile.'.
         self moveToNextPlayer.
+    ]
+
+    pickUpPileAndFaceDown: chosenCard [
+        | player |
+        player := self getCurrentPlayer.
+        player hand addAll: pile.
+        player hand add: (player faceDown at: chosenCard).
+        player faceDown removeAtIndex: chosenCard.
+        pile := OrderedCollection new.
+        player sortHand.
+        lastMove := player name, ' picked up.'.
+        self moveToNextPlayer.
+    ]
+
+    makeFaceDownMove: chosenCard [
+        | player |
+        player := self getCurrentPlayer.    
+        pile add: (player faceDown at: chosenCard).
+        player faceDown removeAtIndex: chosenCard.
+        lastMove := player name, 'laid the ', pile last printString.
+        
+        self burnCardLaid
+            ifTrue: [ self burnPile ]
+            ifFalse: [
+                self missAGoLaid
+                    ifTrue: [
+                        lastMove := player name, ' laid miss a go card.'.
+                        2 timesRepeat: [ self moveToNextPlayer ].
+                    ]
+                    ifFalse: [
+                        self moveToNextPlayer.
+                    ].
+            ].
+    ]
+
+    getSmalltalkHead [
+        players do: [:player |
+            player hasCards ifTrue: [ ^player ].
+        ].
+        ^(players at: 1)
     ]
 ]
 
